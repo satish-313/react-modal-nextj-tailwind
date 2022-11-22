@@ -7,7 +7,9 @@ import Modal from "../component/Modal";
 const Home: NextPage = () => {
   const [modal, setModal] = useState(false);
   const names = useContext(listContext);
-
+  const modalToggle = () => {
+    setModal(!modal);
+  };
   return (
     <div>
       <Head>
@@ -18,13 +20,13 @@ const Home: NextPage = () => {
 
       <div className="flex justify-center p-2">
         <button
-          onClick={() => setModal(!modal)}
+          onClick={modalToggle}
           className="mt-2 border px-5 py-1.5 bg-blue-400 rounded-lg font-semibold text-white hover:bg-blue-700"
         >
           Add List
         </button>
       </div>
-      {modal ? <Modal setModal = {setModal}/> : null}
+      {modal ? <Modal toggle={modalToggle}/> : null}
       <ul>
         {names.map((n, i) => (
           <li key={i}>{n}</li>
