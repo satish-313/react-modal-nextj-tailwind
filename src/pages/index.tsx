@@ -1,7 +1,13 @@
+import { useContext, useState } from "react";
 import type { NextPage } from "next";
 import Head from "next/head";
+import { listContext } from "./context";
+import Modal from "../component/Modal";
 
 const Home: NextPage = () => {
+  const [modal, setModal] = useState(false);
+  const names = useContext(listContext);
+
   return (
     <div>
       <Head>
@@ -10,7 +16,20 @@ const Home: NextPage = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <p className="text-2xl font-bold">hello</p>
+      <div className="flex justify-center p-2">
+        <button
+          onClick={() => setModal(!modal)}
+          className="mt-2 border px-5 py-1.5 bg-blue-400 rounded-lg font-semibold text-white hover:bg-blue-700"
+        >
+          Add List
+        </button>
+      </div>
+      {modal ? <Modal setModal = {setModal}/> : null}
+      <ul>
+        {names.map((n, i) => (
+          <li key={i}>{n}</li>
+        ))}
+      </ul>
     </div>
   );
 };
