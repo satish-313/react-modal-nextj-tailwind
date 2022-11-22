@@ -9,7 +9,7 @@ const Layout: React.FC<Props> = ({ children }) => {
   return (
     <>
       <Header />
-      <div className="max-w-5xl px-3 mx-auto">{children}</div>
+      <div className="max-w-4xl px-3 mx-auto">{children}</div>
     </>
   );
 };
