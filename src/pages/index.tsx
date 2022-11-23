@@ -60,10 +60,17 @@ const ReactModal: FC<{ toggle: () => void; addSkill: (s: string) => void }> = ({
 }) => {
   const modalRef = useRef(null);
   const inputRef = useRef<HTMLInputElement>(null);
+  const [close, setClose] = useState(false);
+
+  const closeHelper = async () => {
+    setClose(true);
+    await new Promise((r) => setTimeout(r, 1000));
+    toggle();
+  };
 
   const closeModalBackground = (e: MouseEvent) => {
     if (modalRef.current === e.target) {
-      toggle();
+      closeHelper();
     }
   };
 
@@ -73,19 +80,23 @@ const ReactModal: FC<{ toggle: () => void; addSkill: (s: string) => void }> = ({
     if (skill !== undefined && skill?.trim().length !== 0) {
       addSkill(skill!);
     }
-    toggle();
+    closeHelper();
   };
 
   return (
     <div
       ref={modalRef}
       onClick={(e) => closeModalBackground(e)}
-      className="absolute inset-0 z-10 bg-gray-300 flex flex-col opacity-95 items-center"
+      className="absolute inset-0 z-10 flex flex-col items-center"
     >
       <div className="h-1/5" />
-      <div className="bg-indigo-700 sm:w-1/2 p-3 rounded-lg relative">
+      <div
+        className={`bg-indigo-700 sm:w-1/2 h-40 p-3 rounded-lg relative modal-body-animation ${
+          close ? "modal-body-animation-close" : ""
+        }`}
+      >
         <button
-          onClick={toggle}
+          onClick={closeHelper}
           className="absolute top-0 right-0 text-xl font-semibold text-red-500 px-3"
         >
           X
