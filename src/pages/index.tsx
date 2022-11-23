@@ -12,7 +12,6 @@ const Home: NextPage = () => {
     "HTML",
     "CSS",
   ]);
-  const inputRef = useRef<HTMLInputElement>(null);
 
   const modalToggle = () => {
     setShowModal(!showModal);
@@ -77,7 +76,7 @@ const ReactModal: FC<{ toggle: () => void; addSkill: (s: string) => void }> = ({
   const Submit = (e: FormEvent) => {
     e.preventDefault();
     const skill = inputRef.current?.value;
-    if (skill !== undefined && skill?.trim().length !== 0) {
+    if (skill !== undefined && skill?.trim() !== "") {
       addSkill(skill!);
     }
     closeHelper();
